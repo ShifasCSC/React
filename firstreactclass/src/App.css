@@ -1,0 +1,15 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.layer{
+  display: flex;
+  justify-content: space-between;
+}
+.layers{
+  height: 60px;
+  width: 80px;
+  border: 1px solid black;
+  text-align: center;
+  margin: 30px;
+}

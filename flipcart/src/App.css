@@ -1,0 +1,50 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+body{
+  height: 100%;
+  width: 100%;
+}
+.cards{
+  margin: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.card{
+  text-align: center;
+  height: 200px;
+  width: 200px;
+  margin: 20px;
+  box-shadow: 1px 1px 10px 1px ;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+#pic{
+  box-shadow: 0px 0px 3px 0px rgb(163, 149, 149) ;
+  border-radius: 2px 2px 0px 0px;
+  margin-bottom: 10px;
+  /* border: 1px solid black; */
+  object-fit: cover;
+  height: 100px;
+  width: 100px;
+}
+.nav{
+  height: 50px;
+  background-color: antiquewhite;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px;
+  margin-bottom: 30px;
+}
+ul{
+  display: flex;
+  list-style: none;
+}
+ul>li{
+  margin: 0px 10px;
+}
