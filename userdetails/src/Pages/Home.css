@@ -1,0 +1,78 @@
+*{
+    margin: 0px;
+    padding: 0px;
+  }
+  .cards{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+  }
+  .card{
+    border:none;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    height: 350px;
+    width: 300px;
+    margin: 20px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 1px 1px 10px 1px rgb(196, 194, 191);
+  }
+  a{
+    text-decoration: none;
+    color: rgb(67, 68, 68);
+  }
+  .nav{
+    /* padding:0px 20px; */
+    height: 50px;
+    background-color: beige;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+  }
+  .list{
+    display: flex;
+    list-style: none;
+  }
+  .list>li{
+    margin-right:30px ;
+  }
+  .image{
+    height: auto;
+    /* width: 160px; */
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+  }
+  .image>img{
+    height: 70%;
+    width: 70%;
+    object-fit: cover;
+  }
+  img{
+    align-items: center;
+  }
+  .section{
+    width: 95%; 
+    display: flex;  
+    justify-content: space-between;      /* Set a fixed width for overflow */
+  overflow-x: auto;     /* Enable horizontal scrolling if overflow */
+  white-space: nowrap;  /* Prevent content from wrapping to the next line */
+  /* border: 1px solid #ddd; */
+  padding: 10px;
+  margin: 20px;
+  border-radius: 10px;
+  word-spacing: 20px;
+  }
+  .section::-webkit-scrollbar{
+    height: 10px;
+  }
+  .section::-webkit-scrollbar-thumb{
+    background-color: rgb(90, 91, 91);
+    border-radius: 10px;
+  }
+  
