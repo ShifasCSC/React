@@ -1,0 +1,39 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/* body{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(148, 143, 124, 0.43); */
+
+/* } */
+.newcontain{
+    display: flex;
+    justify-content: center;
+}
+.frm{
+    margin-top: 4%;
+    height:350px;
+    width: 300px;
+    /* border: 1px solid black; */
+    box-shadow: 1px 1px 15px 1px;
+    background-color: rgba(255, 235, 205, 0.566);
+    padding:25px 10px 10px 30px;
+    border-radius: 20px;
+}
+#head{
+    margin-bottom: 20px;
+}
+tr{
+    padding: 20px;
+}
+.profile{
+    width: 100%;
+}
+.button{
+    padding: 2px 20px;
+    margin:20px 10px;
+
+}
+
