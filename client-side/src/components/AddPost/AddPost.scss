@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Funnel+Display:wght@300..800&family=Parkinsans:wght@300..800&family=Potta+One&display=swap');
+
+// Main container style
+.Post {
+    // max-width: 400px;
+    width: 400px;
+    font-family: "Parkinsans", sans-serif;
+  border: 2px solid orange;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    padding: 15px 50px 15px 30px;
+    // background:linear-gradient(160deg,rgba(128, 0, 128, 0.703),rgba(255, 166, 0, 0.682));
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 1px 1px 16px 1px purple;
+    
+
+    h2 {
+    color:#97760b;
+    font-family: "Parkinsans", sans-serif;
+
+
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  
+    h3 {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  
+    form {
+    //   display: flex;
+      flex-direction: column;
+      div {
+        margin-bottom: 15px;
+  
+        label {
+          font-weight: bold;
+          display: block;
+          margin-bottom: 8px;
+          font-size: 14px;
+          color: #333;
+        }
+  
+        
+        input,textarea {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 14px;
+          color: #333;
+  
+          &:focus {
+            border-color: #007bff;
+            outline: none;
+          }
+        }
+  
+        textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+  
+        .photo-input input[type="file"] {
+          display: block;
+         
+          margin-top: 8px;
+        }
+      }
+  
+      button {
+        padding: 5px 20px;
+        background:linear-gradient(160deg,rgb(128, 0, 128),rgba(255, 166, 0, 0.568));
+
+        color:#52420d;
+        border: none;
+        margin: auto;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+  
