@@ -25,6 +25,7 @@ const SignIn = () => {
   }
 
   const handleSubmit=async(e)=>{
+   try{
     e.preventDefault()
     const res = await axios.post("http://localhost:3000/api/signin",loginData);
     console.log(res);
@@ -37,6 +38,13 @@ const SignIn = () => {
       alert(res.data.msg)
     }
 
+   }catch(error){
+    if(error.res.status==404){
+      return alert(error.res.data.msg)
+    }else{
+      alert("the error is "+error.res.data.msg||"an error occured")
+    }
+   }
   
   }
   

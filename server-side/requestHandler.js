@@ -124,7 +124,7 @@ export async function checkEmail(req,res) {
     <div class="email-container">
         <p>Hello,</p>
         <p>Please verify your email address by clicking the button below.</p>
-        <a href="http://localhost:5173/signup" class="btn">Verify Your Account</a>
+        <a href="http://localhost:3000/signup" class="btn">Verify Your Account</a>
     </div>
 
 </body>
