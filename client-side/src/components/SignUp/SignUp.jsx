@@ -23,30 +23,30 @@ const SignUp = () => {
     }
 
     const handleSubmit=async(e)=>{
-      e.preventDefault()
+      try{
+        e.preventDefault()
       const res =await axios.post("http://localhost:3000/api/signup",user)
       console.log(res);
       if(res.status==200){
         alert(res.data.msg)
         localStorage.removeItem("email")
         navigate('/signin')
-
       }
-      else{
-        alert(res.data.msg)
-
-
+      }catch(error){
+        if(error.res){
+          alert(`Error:${error.res.data.msg}`)
+        }else{
+          alert("the error is "+error.res.data.msg||"an error occured")
+        }
+       }
       }
-      
-
-
-    }
+    
 
   return (
    <>
    <div className="div">
     
-    <div className="container">
+    <div className="containerr">
       <div className="header">
         <div className="text">Sign Up</div>
         <div className="underline"></div>

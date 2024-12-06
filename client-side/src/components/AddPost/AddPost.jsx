@@ -16,6 +16,7 @@ const AddPost = () => {
       }
 
       const handleSubmit = async(e) => {
+       try{
         e.preventDefault();
         setCurrentTime(new Date().toLocaleTimeString())
         console.log(postedDate,description,images,postedTime);
@@ -24,9 +25,12 @@ const AddPost = () => {
         if(res.status==201){
           alert(res.data.msg)
           navigate('/profile')
-        }else{
-          alert(res.data.msg)
         }
+       }catch(error){
+          if(error.res){
+            alert(error.res.data.msg)
+          }
+       }
       };
 
        // Handle image change

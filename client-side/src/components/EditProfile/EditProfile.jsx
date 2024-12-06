@@ -16,6 +16,7 @@ const EditProfile = ({setProfile,setUser}) => {
   },[])
 
   const handleSubmit = async(e) => {
+   try{
     e.preventDefault()
     const res = await axios.post("http://localhost:3000/api/edituserdata",updateData,{headers:{"Authorization":`Bearer ${token}`}})
     console.log(res);
@@ -23,14 +24,16 @@ const EditProfile = ({setProfile,setUser}) => {
       alert(res.data.msg)
       navigate('/profile')
     }
-    else{
-      alert(res.data.msg)
-
+   }catch(error){
+    if(error.res){
+      alert(error.res.data.msg)
     }
+   }
     }
 
   const fetchUserData=async()=>{
-      const res = await axios.get("http://localhost:3000/api/getuserdata",{headers:{"Authorization":`Bearer ${token}`}})
+      try{
+        const res = await axios.get("http://localhost:3000/api/getuserdata",{headers:{"Authorization":`Bearer ${token}`}})
       console.log(res);
       if(res.status==200){
         setUser(res.data.userData.username)
@@ -44,11 +47,16 @@ const EditProfile = ({setProfile,setUser}) => {
          }
          else{
           setUpdateData(res.data.userData)
-
-
          }
+        }
+      }catch(error){
+        if(error.res){
+          alert(error.res.data.msg)
+        }
       }
-    }
+    } 
+    
+      
 
     const handleChange=(e)=>{
       console.log(e.target.name);

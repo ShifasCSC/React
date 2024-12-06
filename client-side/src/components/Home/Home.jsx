@@ -43,6 +43,9 @@ getUser()
 
       }
       } catch (error) {
+        if(error.res){
+          alert(error.res.data.msg)
+        }
       console.log(error);
       navigate('/signin')
       
@@ -55,12 +58,16 @@ getUser()
   }
   
   const getPosts=async()=>{
-    const res=await axios.get("http://localhost:3000/api/getallposts")
-    console.log(res.data)
-    setPost(res.data)
-    // setImages(res.data)
-    
-    
+    try{
+      const res=await axios.get("http://localhost:3000/api/getallposts")
+      console.log(res.data)
+      setPost(res.data)
+      // setImages(res.data)
+    }catch(error){
+      if(error.res){
+        alert(error.res.data.msg)
+      }
+    }
   }
 
   console.log(posts);

@@ -10,18 +10,23 @@ const DisplayPost = () => {
     const [posts,setPosts]=useState({});
     const [photos,setPhotos]=useState([])
     
-    useEffect(()=>{getPosts()},[])
+    useEffect(()=>{
+      getPosts()
+    },[])
+
     const getPosts=async()=>{
+       try{
         const res= await axios.get(`http://localhost:3000/api/getpostdetails/${id}`,{headers:{"Authorization":`Bearer ${token}`}})
         console.log(res)
         if(res.status==200){
             setPosts({...res.data});
-            setPhotos(res.data.images)
-           
-            
+            setPhotos(res.data.images)   
         }
-       
-        
+       }catch(error){
+          if(error.res){
+            alert(error.res.data.msg)
+          }
+       } 
     }
   return (
     <div className='PostD'>

@@ -15,18 +15,26 @@ const Email = () => {
   }
 
   const handleSubmit=async(e)=>{
-    e.preventDefault()
-    const res = await axios.post("http://localhost:3000/api/checkemail",{email})
-    console.log(res);
-    if(res.status==201){
-      alert(res.data.msg)
-      localStorage.setItem('email',email)
-      navigate('/signin')
+    try{
+      e.preventDefault()
+      const res = await axios.post("http://localhost:3000/api/checkemail",{email})
+      console.log(res);
+      if(res.status==201){
+        alert(res.data.msg)
+        localStorage.setItem('email',email)
+        navigate('/signin')
+      }
+    
+    }catch(error){
+      if(error.res){
+        alert(error.res.data.msg)
+      }
     }
-    else{
-      alert(res.data.msg)
     }
-  }
+  
+  
+   
+  
 
   // asd=()=>{
   //   const res=await axios.post("http://localhost",{email},{})

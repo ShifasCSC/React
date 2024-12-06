@@ -16,30 +16,54 @@ const transporter = nodemailer.createTransport({
     },
   });
 
-export async function signUp(req,res) {
-   const {username,email,password,cpassword}=req.body;
-   if(!(username&&email&&password&&cpassword))
-        return res.status(404).send({msg:"Fields are empty"})
-    const userEmail = await userSchema.findOne({email})
-    // if(userEmail)
-    //     return res.status(404).send({msg:"Email already exists"})
-    bcrypt
-    .hash(password,10)
-    .then((hashedPassword)=>{
-        userSchema
-        .create({username,password:hashedPassword,email})
-        .then(()=>{
-             res.status(200).send({msg:"Successfully registered"})
-        })
-        .catch((error)=>{
-            return res.status(404).send({msg:"Not registered"})
-        })
-    })
-   
-    
-     
-       
-   
+// export async function signUp(req,res) {
+//    const {username,email,password,cpassword}=req.body;
+//    if(!(username&&email&&password&&cpassword))
+//         return res.status(404).send({msg:"Fields are empty"})
+//     const usernamee = await userSchema.findOne({username})
+//     if(usernamee)
+//         return res.status(404).send({msg:"Email already exists"})
+//     bcrypt.hash(password,10).then((hashedPassword)=>{
+//         userSchema.create({username,password:hashedPassword,email}).then(()=>{
+//              res.status(200).send({msg:"Successfully registered"})
+//         })
+//         .catch((error)=>{
+//             return res.status(404).send({msg:"Not registered"})
+//         })
+//     })
+
+export async function signUp(req, res) {
+    const { username, email, password, cpassword } = req.body;
+
+    // Check if all fields are provided
+    if (!(username && email && password && cpassword)) {
+        return res.status(400).send({ msg: "All fields are required" });
+    }
+
+    // Check if passwords match
+    if (password !== cpassword) {
+        return res.status(400).send({ msg: "Passwords do not match" });
+    }
+
+    try {
+        // Check if username already exists
+        const usernameExists = await userSchema.findOne({ username });
+        if (usernameExists) {
+            return res.status(400).send({ msg: "Username already exists" });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create the new user in the database
+        await userSchema.create({ username, password: hashedPassword, email });
+
+        // Send success response
+        return res.status(201).send({ msg: "Successfully registered" });
+    } catch (error) {
+        console.error(error);  // Log error for debugging purposes
+        return res.status(500).send({ msg: "Registration failed, please try again" });
+    }
 }
 
 

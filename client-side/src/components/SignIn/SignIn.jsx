@@ -34,13 +34,9 @@ const SignIn = () => {
       alert(res.data.msg)
       navigate('/')
     }
-    else{
-      alert(res.data.msg)
-    }
-
    }catch(error){
-    if(error.res.status==404){
-      return alert(error.res.data.msg)
+    if(error.response){
+      alert(`Error:${error.response.data.msg}`)
     }else{
       alert("the error is "+error.res.data.msg||"an error occured")
     }
@@ -76,11 +72,11 @@ const SignIn = () => {
       <div className="submit-container">
       <Link  style={{textDecoration:"none"}}><div className="submit" onClick={handleSubmit}>Sign In</div>
       </Link>
-      <Link to={'/email'} style={{textDecoration:"none"}}><div className="submit">Sign Up</div>
-      </Link>
       </div>
-
+      <Link to={'/email'} style={{color:"black"}}><div className="submitt">OR/Sign Up</div>
+      </Link>
      </div>
+
     </div>
    </>
     
