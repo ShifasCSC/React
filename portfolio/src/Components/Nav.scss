@@ -1,0 +1,9 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+#li a:hover{
+    transform: scaleX(0);
+    transition: transform 0.5s;
+    transform-origin:0% 50% ;
+}
