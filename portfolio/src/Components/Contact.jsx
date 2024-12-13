@@ -17,21 +17,21 @@ function Contact() {
         <div className="con flex flex-col justify-center text-center flex-wrap items-center ">
 
         <div className='flex space-x-2 mt-20 trackling-tighter'>
-          <MdLocationOn className='text-5xl text-white border border-3 border-white rounded p-2'/>
-           <span className='text-white mt-3'>
-            Chembrayoor House,Vellarakkad,Thrissur 
-            </span>
-          </div>
-
-
-        <div className='flex space-x-2 mt-20 trackling-tighter'>
         <MdOutlineMail className='text-5xl text-white border border-3 border-white rounded p-2'/>
            <span className='text-white mt-3 pe-39'>
              sshifas333@gmail.com 
             </span>
           </div>
 
-          <div className='flex space-x-2 mt-20 trackling-tighter'>
+        <div className='flex space-x-2 mt-20 trackling-tighter'>
+          <MdLocationOn className='text-5xl text-white border border-3 border-white rounded p-2'/>
+           <span className='text-white mt-3'>
+            Vellarakkad,Thrissur 
+            </span>
+          </div>
+
+
+          <div className='flex space-x-2 mt-20  trackling-tighter'>
           <FaPhone className='text-5xl text-white border border-3 border-white rounded p-2'/>
            <span className='text-white mt-3'>
              6282887370
