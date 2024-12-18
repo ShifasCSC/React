@@ -1,0 +1,43 @@
+*{
+  padding: 0px;
+  margin: 0px;
+}
+.main{
+  display: flex;
+  justify-content: center;
+}
+h1{
+  color: blanchedalmond;
+}
+input{
+  border-radius: 8px;
+  border: none;
+  padding:7px 20px;
+}
+button{
+  padding:9px 20px;
+  margin: 10px;
+  background-color: cadetblue;
+  border-radius: 10px;
+  border: none;
+}
+.container{
+  border-radius: 15px;
+  background-color: rgba(11, 51, 85, 0.805);
+  border: 1px solid black;
+  height: 400px;
+  width: 400px;
+  text-align: center;
+  margin-top: 10%;
+  padding-top: 30px;
+}
+.todo{
+padding-top: 30px;
+
+}
+.task{
+  background-color: rgb(99, 131, 132);
+  margin: 10px 60px;
+  border-radius: 20px;
+  height: 100px;
+}
