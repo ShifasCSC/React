@@ -6,6 +6,7 @@ import Nav from './Components/Nav/Nav'
 import SignIn from './Components/SignIn/SignIn'
 import SignUp from './Components/SignUp/SignUp'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Email from './Components/Email/Email'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,7 @@ function App() {
    <Nav/>
    <Routes>
     <Route path='/signup' Component={SignUp}/>
+    <Route path='/email' Component={Email}/>
     <Route path='/' Component={SignIn}/>
     </Routes>
     </BrowserRouter>

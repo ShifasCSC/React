@@ -4,6 +4,7 @@ const userSchema =new mongoose.Schema({
     email:{type:String},
     password:{type:String},
     cpassword:{type:String},
-    phone:{type:String}
+    phone:{type:String},
+    acctype:{type:String}
 })
 export default mongoose.model.user||mongoose.model("user",userSchema)

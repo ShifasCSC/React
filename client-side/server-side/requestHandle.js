@@ -20,8 +20,8 @@ const transporter = nodemailer.createTransport({
 
 //seller and buyyer signUp
 export async function signUp(req,res){
-   const {username,email,password,cpassword,phone} =req.body
-   if(!(username&&email&&password&&cpassword&&phone))
+   const {username,email,password,cpassword,phone,acctype} =req.body
+   if(!(username&&email&&password&&cpassword&&phone&&acctype))
     return res.status(404).send({msg:"fields are empty "})
 if(password!==cpassword)
     return res.status(404).send({msg:"the password doesn't match"})
@@ -30,7 +30,7 @@ if(userr)
     return res.status(404).send({msg:"user already existed"})
 try{
  const hashedpwd=await bcrypt.hash(password,10)
- const user=await userSchema.create({username,email,phone,password:hashedpwd});
+ const user=await userSchema.create({username,email,phone,password:hashedpwd,acctype});
  res.status(201).send({msg:"created sucessfully",user})
 }catch(error){
     console.log(error);
