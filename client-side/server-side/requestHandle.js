@@ -6,12 +6,13 @@ const {sign}=pkg
 
 //mail transport
 const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for port 465, false for other ports
+    // host: "smtp.ethereal.email",
+    // port: 587,
+    // secure: false, // true for port 465, false for other ports
+    service:"gmail",
     auth: {
       user: "qrfs4444@gmail.com",
-      pass: "jn7jnAPss4f63QBp6D",
+      pass: "qetf gphp xrgt penw",
     },
   });
 
@@ -29,7 +30,6 @@ if(userr)
     return res.status(404).send({msg:"user already existed"})
 try{
  const hashedpwd=await bcrypt.hash(password,10)
-
  const user=await userSchema.create({username,email,phone,password:hashedpwd});
  res.status(201).send({msg:"created sucessfully",user})
 }catch(error){
@@ -38,7 +38,7 @@ try{
 }
 }
 //seller and buyyer login
-export async function SignIn(req,res){
+export async function signIn(req,res){
     try{
        const {email,password}=req.body
        if(!(email&&password))
@@ -66,8 +66,8 @@ export async function mail(req,res){
      const info = await transporter.sendMail({
         from: 'qrfs4444@gmail.com', // sender address
         to: `${email}`, // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "mail verification", // plain text body
+        subject: "for your email verification", // Subject line
+        text: "confirmation", // plain text body
         html:  `<!DOCTYPE html>
         
         <html lang="en">
