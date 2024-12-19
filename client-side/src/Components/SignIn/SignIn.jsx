@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../SignIn/SignIn.scss"
 import { Link, Navigate } from "react-router-dom";
-
+import axios from "axios";
 function SignIn(){
 
-const [login,setLogin]=useState({mail:"",pwd:""})
+const [login,setLogin]=useState({email:"",password:""})
 
 const HandleChange=(e)=>{
     setLogin((pre)=>({...pre,[e.target.name]:e.target.value}))
@@ -14,16 +14,16 @@ const handleSubmit=async(e)=>{
     try{
         e.preventDefault()
         const res=await axios.post(`http://localhost:3006/api/signin`,login)
-        if(res==200)
+        if(res.status==200)
         {
             localStorage.setItem("token",res.data.token)
             alert(res.data.msg)
-            Navigate('/signup')
+            // Navigate('/signup')
         }
 
     }catch(error){
         console.log(error);
-        alert(error.res.data.msg)
+        alert(error.data)
         
     }
 }
@@ -36,16 +36,16 @@ const handleSubmit=async(e)=>{
                 <table>
                  <tbody>
                    <tr>
-                <td><label htmlFor="mail">Email:</label></td>
+                <td><label htmlFor="email">Email:</label></td>
                    </tr>
                    <tr>
-                    <td><input type="text" onChange={HandleChange} name="mail" placeholder="enter your registered mail" id="mail" className="block w-full py-1 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-400 border-2 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" autoComplete="username webauthn" /></td>
+                    <td><input type="text" onChange={HandleChange} name="email" placeholder="enter your registered mail" id="email" className="mt-4 mb-2 block w-full py-1 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-400 border-2 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" autoComplete="username webauthn" /></td>
                    </tr>
                    <tr>
-                    <td><label  htmlFor="pwd" className="lab">password:</label></td>
+                    <td><label  htmlFor="pwd" className=" mt-2 lab">password:</label></td>
                    </tr>
                    <tr>
-                    <td><input type="password" onChange={HandleChange} name="pwd" id="pwd" placeholder="enter email password" className="block w-full py-1 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border  border-gray-400 border-2 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" autoComplete="current-password" /></td>
+                    <td><input type="password" onChange={HandleChange} name="password" id="password" placeholder="enter email password" className="mt-3 block w-full py-1 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border  border-gray-400 border-2 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" autoComplete="current-password" /></td>
                    </tr>
                    {/* <tr>
                   <td><label  htmlFor="cpwd" className="lab">confirm password:</label></td>

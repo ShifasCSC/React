@@ -2,6 +2,7 @@ import userSchema from "./models/user.model.js"
 import pkg from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import nodemailer from "nodemailer"
+import { data } from "react-router-dom"
 const {sign}=pkg
 
 //mail transport
@@ -111,14 +112,14 @@ export async function mail(req,res){
             <div class="email-container">
                 <p>Hello,</p>
                 <p>Please verify your email address by clicking the button below.</p>
-                <a href="http://localhost:3000/signup" class="btn">Verify Your Account</a>
+                <a href="http://localhost:5173/signup" class="btn">Verify Your Account</a>
             </div>
         
         </body>
         </html>`, // html body
               });
             //   console.log("Message sent: %s", info.messageId)
-res.status(201).send({msg:"Confirmation mail successfully sent"});
+res.status(200).send({msg:"Confirmation mail successfully sent"});
     }catch(error){
         console.log(error);
         res.status(404).send({msg:"email verification failed"})    

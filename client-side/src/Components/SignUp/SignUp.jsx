@@ -1,92 +1,130 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate,Link } from "react-router-dom";
 function SignUp(){
+    const navigate=useNavigate()
+    const email=localStorage.getItem('email');
+    const [sign,setSign]=useState({
+        username:"",
+        email:email,
+        phone:"",
+        password:"",
+        cpassword:"",
+        acctype:""
+    })
+    const handleInput=(e)=>{
+        setSign((pre)=>({...pre,[e.target.name]:e.target.value}))
+        
+    }
+    const handleSubmit=async(e)=>{
+        try{
+            e.preventDefault()
+            const res=await axios.post(`http://localhost:3006/api/signup`,sign);
+            console.log(sign);
+            if(res.status==201)  {
+                alert("account created sucessfully")
+                console.log(res.data.msg); 
+                navigate('/signin')  
+            }else{
+                alert("an error is occurred")
+            }
+
+       }catch(error){
+        console.log(error);
+        alert(error)
+        
+       }
+    }
     return(
         <>
-        <section class="py-10 bg-gray-50 sm:py-16 lg:py-24">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto text-center">
-            <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Register</h2>
-        </div>
-
-        <div class=" max-w-md mx-auto mt-2 shadow-xl shadow-slate-700 md:mt-16">
-            <div class="overflow-hidden bg-white rounded-md shadow-md">
-                <div class="px-2 py-6 sm:px-8 sm:py-7">
-                    <form action="#" method="POST">
-                        <div class="space-y-2">
+        <section className="py-4 bg-gray-50 sm:py-8 lg:py-4">
+    <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className=" max-w-md mx-auto mt-2 shadow-xl shadow-slate-700 md:mt-16">
+            <h2 className="max-w-2xl text-center mx-auto sm:px-6 lg:px-8   text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-4xl">Register</h2>
+            <div className="overflow-hidden bg-white rounded-md shadow-md">
+                <div className="px-2 py-6 sm:px-8 sm:py-7">
+                    <form onSubmit={handleSubmit}>
+                        <div className="space-y-2">
                             
-                                <label for="" class="text-base font-medium text-gray-900">Username </label>
-                                <div class=" relative text-gray-400 focus-within:text-gray-600">
+                                <label htmlFor="username" className="text-base font-medium text-gray-900">Username </label>
+                                <div className=" relative text-gray-400 focus-within:text-gray-600">
                                     <input
                                         type="text"
-                                        name=""
-                                        id=""
+                                        name="username"
+                                        id="username"
+                                        onChange={handleInput}
                                         placeholder="Enter your full name"
-                                        class="block w-full py-2 pl-1 pr-2 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-2 pl-1 pr-2 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                                     />
                                 </div>
-
-                            <div>
-                                <label for="" class="text-base font-medium text-gray-900"> Email </label>
-                                <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                            {/* <div>
+                                <label htmlFor="email" className="text-base font-medium text-gray-900"> Email </label>
+                                <div className="mt-1 relative text-gray-400 focus-within:text-gray-600">
                                    
 
                                     <input
                                         type="email"
                                         name="email"
                                         id="email"
+                                        onChange={handleInput}
                                         placeholder="Enter email "
-                                        class="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                                     />
                                 </div>
-                            </div>
+                            </div> */}
+
+                            
                             <div>
-                                <label for="" class="text-base font-medium text-gray-900"> Phone </label>
-                                <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                                <label htmlFor="phone" className="text-base font-medium text-gray-900"> Phone </label>
+                                <div className="mt-1 relative text-gray-400 focus-within:text-gray-600">
                                    
 
                                     <input
                                         type="text"
                                         name="phone"
                                         id="phone"
-                                        placeholder="Enter email "
-                                        class="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        onChange={handleInput}
+                                        placeholder="Enter your phone number "
+                                        className="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label for="" class="text-base font-medium text-gray-900"> Password </label>
-                                <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                                <label htmlFor="password" className="text-base font-medium text-gray-900"> Password </label>
+                                <div className="mt-1 relative text-gray-400 focus-within:text-gray-600">
                                     
 
                                     <input
                                         type="password"
-                                        name="pwd"
-                                        id="pwd"
+                                        name="password"
+                                        id="password"
+                                        onChange={handleInput}
                                         placeholder="Enter your password"
-                                        class="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label for="" class="text-base font-medium text-gray-900"> Confirm Password </label>
-                                <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                                <label htmlFor="cpassword" className="text-base font-medium text-gray-900"> Confirm Password </label>
+                                <div className="mt-1 relative text-gray-400 focus-within:text-gray-600">
                                     
 
                                     <input
                                         type="password"
-                                        name="cpwd"
-                                        id="cpwd"
+                                        name="cpassword"
+                                        id="cpassword"
+                                        onChange={handleInput}
                                         placeholder="Confirm your password"
-                                        class="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label for="" class="text-base font-medium text-gray-900"> Confirm Password </label>
-                                <div class="mt-1 relative text-gray-400 focus-within:text-gray-600">
-                                    <select className="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" name="acctype" id="acctype">
+                                <label htmlFor="acctype" className="text-base font-medium text-gray-900"> Confirm Password </label>
+                                <div className="mt-1 relative text-gray-400 focus-within:text-gray-600">
+                                    <select onChange={handleInput} className="block w-full py-2 pl-1 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" name="acctype" id="acctype">
                                         <option value="">--select--</option>
                                         <option value="seller">seller</option>
                                         <option value="buyer">buyer</option>
@@ -96,7 +134,7 @@ function SignUp(){
 
 
                             <div>
-                                <button type="submit" class="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700">
+                                <button type="submit" className="inline-flex items-center justify-center w-full px-2 py-1 text-base font-semibold text-white transition-all duration-200 bg-slate-600 border border-transparent rounded-md focus:outline-none hover:bg-slate-700 focus:bg-blue-700">
                                     Create account
                                 </button>
                             </div>
