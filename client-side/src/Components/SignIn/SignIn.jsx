@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../SignIn/SignIn.scss"
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 function SignIn(){
-
+const navigate=useNavigate()
 const [login,setLogin]=useState({email:"",password:""})
 
 const HandleChange=(e)=>{
@@ -17,13 +17,16 @@ const handleSubmit=async(e)=>{
         if(res.status==200)
         {
             localStorage.setItem("token",res.data.token)
+            
             alert(res.data.msg)
-            // Navigate('/signup')
+            navigate('/')
         }
 
     }catch(error){
         console.log(error);
-        alert(error.data)
+        console.log(error.res);
+        
+        alert(error.res.msg)
         
     }
 }

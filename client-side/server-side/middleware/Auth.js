@@ -1,18 +1,20 @@
 import pkg from "jsonwebtoken"
+import userSchema from "../models/user.model.js"
 
 const {verify}=pkg
 
 export default async function Auth(req,res,next){
     try{
-        const key=await req.headers.authorization
-        if(!key)
-            return res.status(403).send({msg:"unauthorised acess"})
-        console.log(key);
-        const token=await key.split("")[1]
+        const key= req.headers.authorization
+        const token=await key.split(" ")[1]
         console.log(token);
-        const auth=await verify(token,process.env.KEY)
+        const auth= verify(token,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
         console.log(auth);
-         req.user=auth;
+        const user=await userSchema.findOne({_id:auth.userId})
+        if(!user){
+            return res.status(403).send({msg:"unauthorised acess"})
+        }  
+         req.user=auth.userId
          next() 
     }catch(error){
         console.log(error);

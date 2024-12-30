@@ -1,8 +1,9 @@
 import userSchema from "./models/user.model.js"
+import addresSchema from "./models/address.model.js"
 import pkg from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import nodemailer from "nodemailer"
-import { data } from "react-router-dom"
+
 const {sign}=pkg
 
 //mail transport
@@ -21,7 +22,7 @@ const transporter = nodemailer.createTransport({
 
 //seller and buyyer signUp
 export async function signUp(req,res){
-   const {username,email,password,cpassword,phone,acctype} =req.body
+   const {username,email,password,cpassword,phone,acctype,profile} =req.body
    if(!(username&&email&&password&&cpassword&&phone&&acctype))
     return res.status(404).send({msg:"fields are empty "})
 if(password!==cpassword)
@@ -31,7 +32,7 @@ if(userr)
     return res.status(404).send({msg:"user already existed"})
 try{
  const hashedpwd=await bcrypt.hash(password,10)
- const user=await userSchema.create({username,email,phone,password:hashedpwd,acctype});
+ const user=await userSchema.create({username,email,phone,password:hashedpwd,acctype,profile});
  res.status(201).send({msg:"created sucessfully",user})
 }catch(error){
     console.log(error);
@@ -119,7 +120,7 @@ export async function mail(req,res){
         </html>`, // html body
               });
             //   console.log("Message sent: %s", info.messageId)
-res.status(200).send({msg:"Confirmation mail successfully sent"});
+res.status(200).send({msg:"Confirmation mail successfully sent",email});
     }catch(error){
         console.log(error);
         res.status(404).send({msg:"email verification failed"})    
@@ -127,11 +128,38 @@ res.status(200).send({msg:"Confirmation mail successfully sent"});
 }
 
 
+//display the user
+export async function dispUser(req,res){
+    try{
+        
+        const _id=req.user
+        console.log(_id);
+        const user= await userSchema.findOne({_id})
+        res.status(200).send({user})
+        
+    }catch(error){
+        console.log(error);
+        res.status(404).send({msg:"user not found"})
+        
+    }
+}
+//to edit details
+export async function editUser(req,res){
+    try{
+    const _id=req.user
+    const {username,phone,email}=req.body
+    const edit=await userSchema.updateOne({_id},{$set:{username,phone,email}})
+    res.status(201).send({msg:"successfully updated",edit})
+    }catch(error){
+        console.log(error);
+        res.status(404).send({msg:"failed to update the data"})   
+    }
+}
 
 //to delete seller details
 export async function deleteUser(req,res){
 try{
-  const {_id}=req.params
+  const _id=req.user
   await userSchema.deleteOne({_id})
   res.status(200).send({msg:"deleted sucessfully"})
 }catch(error){
@@ -139,4 +167,59 @@ try{
     res.status(404).send({msg:"deletion is failed"})
 }
 }
+//ADDRESS SCHEMA
+// add adress
+export async function addAddress(req,res){
+    try{
+        const _id=req.user
+    const {place,pincode,city}=req.body
+        const data=await addresSchema.findOne({place,pincode,city})
+        if(data){
+         return res.status(400).send({msg:"address already created"})
+     }
+       const address= await addresSchema.create({userID:_id,place,pincode,city})
+       return res.status(201).send({msg:"create sucessfully",address})
+    }catch(error){
+        console.log(error);
+        res.status(404).send({msg:"cannot create address data"})                  
+}
+}
+
+//display address
+export async function displayAddress(req,res) {
+    try {
+        const _id=req.user
+        const address=await addresSchema.find({userID:_id})
+        res.status(200).send({msg:"sucess",address})
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})    
+    }
+}
+
+//update addr
+export async function updateAddress(req,res){
+    try{
+     const _id=req.user
+    const {place,pincode,city}=req.body
+        await addresSchema.updateOne({userID:_id},{$set:{place,pincode,city}})
+            res.status(200).send({msg:"updated sucessfully"})
+    }catch(error){
+        console.log(error);            
+    res.status(404).send({msg:"cannot create data"})
+}
+}
+
+//delete address
+export async function deleteAddress(req,res){
+    try{
+     const _id=req.user
+        await addresSchema.deleteOne({userID:_id})
+            res.status(200).send({msg:"deleted sucessfully"})
+    }catch(error){
+        console.log(error);            
+    res.status(404).send({msg:"cannot delete data"})
+}
+}
+
  

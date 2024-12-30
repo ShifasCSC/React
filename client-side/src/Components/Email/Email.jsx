@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Api from "../Api";
 
 function Email(){
     const navigate=useNavigate()
+    const api=Api()
     const[email,setEmail]=useState("")
     const handleChange=(e)=>{
         setEmail(e.target.value)    
@@ -11,8 +13,8 @@ function Email(){
     const  handleSubmit=async(e)=>{
         try{
             e.preventDefault()
-         const res=await axios.post(`http://localhost:3006/api/mail`,{email})
-         console.log(res);    
+         const res=await axios.post(`${api}/mail`,{email})
+          
            if(res.status==200){
             localStorage.setItem('email',email)
             console.log(email);    
