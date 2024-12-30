@@ -5,13 +5,13 @@ import Auth from "./middleware/Auth.js"
 const router=Router()
 router.route("/signup").post(rh.signUp)
 router.route("/signin").post(rh.signIn)
-
-
-router.route("/disp").get(Auth,rh.dispUser)
-
-
-router.route("/delete").delete(rh.deleteUser)
 router.route("/mail").post(rh.mail)
+
+
+
+//profile
+router.route("/disp").get(Auth,rh.dispUser)
+router.route("/delete").delete(rh.deleteUser)
 router.route("/edituser").put(rh.editUser)
 //adress
 router.route("/addaddr").post(Auth,rh.addAddress)
