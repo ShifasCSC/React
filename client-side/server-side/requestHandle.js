@@ -1,5 +1,8 @@
 import userSchema from "./models/user.model.js"
 import addresSchema from "./models/address.model.js"
+import companySchema from "./models/company.model.js"
+import productSchema from "./models/product.model.js"
+import categorySchema from "./models/category.model.js"
 import pkg from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import nodemailer from "nodemailer"
@@ -221,5 +224,152 @@ export async function deleteAddress(req,res){
     res.status(404).send({msg:"cannot delete data"})
 }
 }
+
+
+
+// company details
+export async function editComapany(req,res){
+    try {
+        const{name,email,phone,place}=req.body
+        // console.log(username,email)
+        const _id=req.user
+        // console.log(_id);
+        const user=await companySchema.findOne({userID:_id})
+        // console.log(user);
+        if(!user){
+            await companySchema.create({name,email,phone,place,userID:_id}).then(()=>{
+               return res.status(201).send({msg:"Successfully Added"})
+            }).catch((error)=>{
+                console.log(error);
+                res.status(404).send({msg:error})    
+            })
+        }
+        else{
+            await companySchema.updateOne({userID:_id},{$set:{name,email,phone,place}}).then(()=>{
+               return res.status(201).send({msg:"Successfully Updated"})
+            }).catch((error)=>{
+                console.log(error);
+                res.status(404).send({msg:error})    
+            })
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})      
+    }
+}
+export async function getCompany(req,res){
+    try {
+    //    console.log(req.user.userId);
+       const userID=req.user
+       const companyData= await companySchema.findOne({userID})
+    //    console.log(companyData);
+       res.status(200).send(companyData)
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})            
+    }
+}
+// add category
+
+export async function category(req,res){
+    try {
+        const{newCategory}=req.body
+        await categorySchema.create({category:newCategory}).then(()=>{
+            return res.status(201).send({msg:"Category Added"})
+         }).catch((error)=>{
+             console.log(error);
+             res.status(404).send({msg:error})    
+         })
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})            
+    }
+}
+export async function getCategory(req,res){
+    try {
+       const category= await categorySchema.find()
+       res.status(200).send(category)
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})            
+    }
+}
+// add products
+export async function addProduct(req,res){
+    try {
+        const{productName,price,sizes,category,images}=req.body
+        await productSchema.create({productName,price,sizes,category,images}).then(()=>{
+            return res.status(201).send({msg:"Product Added"})
+         }).catch((error)=>{
+             console.log(error);
+             res.status(404).send({msg:error})    
+         })
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})            
+    }
+}
+//delete the product
+export async function delProduct(req,res){
+    try {
+        const {_id}=req.params
+        const products= await productSchema.deleteOne({_id})
+       res.status(200).send({msg:"deleted succesfully"})
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})            
+    }
+}
+//display product
+export async function getProducts(req,res){
+    try {
+        const products= await productSchema.find()
+       res.status(200).send(products)
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})            
+    }
+}
+
+//edit product
+export async function editProduct(req,res){
+    try{
+     const {productName,price,sizes,category,images}=req.body
+     const {_id}=req.params
+     const pro=await productSchema.updateOne({_id},{$set:{productName,price,sizes,category,images}})
+     res.status(201).send({msg:"update sucess",pro})
+    }catch(error){
+        console.log(error);
+        res.status(404).send({msg:"update failed"})
+        
+    }
+}
+
+//display single product
+export async function disProduct(req,res){
+    try{
+        const {_id} =req.params
+       const pro=await productSchema.findOne({_id})
+        res.status(200).send(pro)
+    }catch(error){
+        console.log(error);
+res.status(404).send({msg:"failed to display data"})
+        
+    }
+}
+
+
+export async function getCatProducts(req,res){
+    try {
+        const{category}=req.params
+        const products= await productSchema.find({category})
+        res.status(200).send(products)
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})            
+    }
+}
+
+
 
  

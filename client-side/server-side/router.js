@@ -18,4 +18,22 @@ router.route("/addaddr").post(Auth,rh.addAddress)
 router.route("/dispaddr").get(Auth,rh.displayAddress)
 router.route("/uptaddr").put(Auth,rh.updateAddress)
 router.route("/deladdr").delete(Auth,rh.deleteAddress)
+
+
+// company
+router.route('/editcompany').post(Auth,rh.editComapany)
+router.route('/getcompany').get(Auth,rh.getCompany)
+
+// category
+router.route('/category').post(rh.category)
+router.route('/getcategory').get(rh.getCategory)
+
+// product
+router.route('/delproduct/:_id').delete(rh.delProduct)
+router.route('/editproduct/:_id').put(rh.editProduct)
+router.route('/disproduct/:_id').get(rh.disProduct)
+router.route('/addproduct').post(rh.addProduct)
+router.route('/getproducts').get(rh.getProducts)
+router.route('/getcatproducts/:category').get(rh.getCatProducts)
+
 export default router;
