@@ -9,7 +9,7 @@ const ProductDetails = ({user,setUser}) => {
     const { _id } = useParams(); // Get product ID from URL params 
     const navigate = useNavigate(); // For redirecting
     const [product, setProduct] = useState(null); // State to store product details
-    const [mainImage, setMainImage] = useState('');
+    const [mainImage, setMainImage] = useState([]);
 
     useEffect(() => {
         fetchProductDetails();
@@ -54,8 +54,8 @@ const ProductDetails = ({user,setUser}) => {
     return (
         <div className="flex flex-wrap justify-center mt-8">
             {/* Left side: Main product image */}
-            <div className="w-full sm:w-48 md:w-56 lg:w-64 h-96 p-4 m-2 shadow-lg">
-                <div className="main-image text-center mb-4">
+            <div className="w-full sm:w-60 md:w-80 lg:w-96 h-auto sm:w-auto p-4 m-2 shadow-lg">
+                <div className="main-image p-5 bg-center bg-fixed bg-cover text-center mb-4">
                     <img
                         src={mainImage}
                         alt="Main Product"
@@ -64,13 +64,13 @@ const ProductDetails = ({user,setUser}) => {
                 </div>
 
                 {/* Sub-images (hover to change main image) */}
-                <div className="sub-images flex justify-between">
+                <div className="sub-images flex flex-wrap justify-between">
                     {product.images.map((image, index) => (
                         <img
                             key={index}
                             src={image}
-                            alt={`Sub Image ${index + 1}`}
-                            className="sub-image w-24 h-24 object-cover cursor-pointer border rounded-md"
+                            alt={`Sub Image ${index[0] + 1}`}
+                            className="sub-image w-24 h-24 p-3 object-cover cursor-pointer border rounded-md"
                             onMouseOver={() => setMainImage(image)}
                         />
                     ))}
@@ -78,7 +78,7 @@ const ProductDetails = ({user,setUser}) => {
             </div>
 
             {/* Right side: Product details */}
-            <div className="w-full sm:w-48 md:w-56 lg:w-64 p-4 m-2 bg-white shadow-lg rounded-md">
+            <div className="w-full sm:w-60 md:w-80 lg:w-96 p-4 m-2 bg-white shadow-lg rounded-md">
                 <h1 className="text-2xl font-semibold mb-4">{product.productName}</h1>
                 <p className="text-xl font-semibold text-green-600 mb-4">${product.price}</p>
                 <p className="text-lg font-semibold mb-4">Category: {product.category}</p>
@@ -86,10 +86,13 @@ const ProductDetails = ({user,setUser}) => {
                 <div className="mb-4">
                     <label htmlFor="size" className="block text-lg font-semibold mb-2">Size:</label>
                     <select id="size" className="w-full p-2 border rounded-md">
-                        {product.sizes.map((size, index) => (
-                            <option className='h-5 p-2' key={index} value={size}>{size}</option>
-                        ))}
-                    </select>
+    {product.sizes.map((sizeObj, index) => (
+        <option className='h-5 p-2' key={index} value={sizeObj.size}>
+            {sizeObj.size} (Quantity: {sizeObj.quantity})
+        </option>
+    ))}
+</select>
+
                 </div>
                   {accountType=="seller"?(
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Profile.scss";
 import axios from 'axios';
 import Api from '../Api';
-import { useAccount } from '../AccountContext';
+
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 function Profile({ user, setUser }) {
@@ -17,7 +17,6 @@ function Profile({ user, setUser }) {
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [addressAdded, setAddressAdded] = useState(false);
   const [editAddress, setEditAddress] = useState(null);  // To track which address is being edited
-  // const { accountType } = useAccount();  // Accessing account type to conditionally render buttons
   const [userType,setUserType]=useState(null)
 
   const handleManageAddressesClick = () => {

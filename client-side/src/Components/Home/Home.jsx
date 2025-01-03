@@ -50,21 +50,21 @@ const Home = ({setUser})=>{
     
     return (
         <>
-            <div className="home flex flex-wrap">
+            <div className="home flex flex-wrap justify-between p-10">
                 {products.map((prod, index) => {
                      console.log("Product:", prod);  // Log each product to inspect its structure
                     return (
                         <Link to={`/details/${prod._id}`} key={index}>
-                            <div className="w-full sm:w-48 md:w-56 lg:w-64 h-56 border border-gray-300 p-4 m-2 shadow-lg">
+                            <div className="w-full mt-5 sm:w-48 md:w-56 lg:w-64 h-56 border border-gray-300 p-4 m-2 shadow-lg">
                                 {/* Ensure images is an array and has at least one item */}
                                 {prod.images && prod.images.length > 0 ? (
-                                    <img src={prod.images[0]} alt="Post" className="w-full h-4/6 object-cover border rounded-md" />
+                                    <img src={prod.images[0]} alt="Post" className="w-full h-4/6 bg-fixed bg-cover object-cover border rounded-md" />
                                 ) : (
                                     <div className="w-full h-4/6 bg-gray-300 flex items-center justify-center text-white">No Image</div>
                                 )}
                                 <div className='flex flex-wrap justify-between mt-4'>
                                     {/* Ensure productName exists */}
-                                    <p className='text-center text-sm font-semibold'>
+                                    <p className='text-center text-sm text-blue-800 text-l   font-bold'>
                                         {prod.productName || "Unnamed Product"}
                                     </p>
                                     {/* Ensure price exists */}

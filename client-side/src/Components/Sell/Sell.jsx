@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Api from '../Api';
-import { useAccount } from '../AccountContext';
+
 
 const Sell = () => {
   const api = Api();
@@ -12,12 +12,12 @@ const Sell = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [proBool, setProBool] = useState(false);
-const {accountType}=useAccount();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
-if (accountType !== "seller") {
-    return <div>You must be a seller to add products.</div>;
-  }
 
 
   const fetchData = async () => {
@@ -26,6 +26,8 @@ if (accountType !== "seller") {
         const { data } = await axios.get(`${api}/getcompany`, {
           headers: { 'authorization': `Bearer ${token}` },
         });
+        console.log(data);
+        
         setCompData(data);
         data ? setProBool(true) : setProBool(false);
         
@@ -33,9 +35,6 @@ if (accountType !== "seller") {
         const res = await axios.get(`${api}/getproducts`);
         setProducts(res.data);
         
-        useEffect(() => {
-          fetchData();
-        }, []);
         // Fetch categories
         const res1 = await axios.get(`${api}/getcategory`);
         const cat = res1.data.map((cat) => cat.category);

@@ -164,7 +164,7 @@ function convertBase64(file){
               required
             >
               {categories.map((cat, index) => (
-                <option key={index} value={cat}>
+                <option key={index[0]} value={cat}>
                   {cat}
                 </option>
               ))}

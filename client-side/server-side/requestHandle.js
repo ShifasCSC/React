@@ -3,9 +3,11 @@ import addresSchema from "./models/address.model.js"
 import companySchema from "./models/company.model.js"
 import productSchema from "./models/product.model.js"
 import categorySchema from "./models/category.model.js"
+import wishlistSchema from "./models/wishList.model.js";
 import pkg from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import nodemailer from "nodemailer"
+import { send } from "vite"
 
 const {sign}=pkg
 
@@ -358,7 +360,7 @@ res.status(404).send({msg:"failed to display data"})
     }
 }
 
-
+// to display cartegory products
 export async function getCatProducts(req,res){
     try {
         const{category}=req.params
@@ -371,5 +373,88 @@ export async function getCatProducts(req,res){
 }
 
 
+//WISHLIST
 
+
+//to add products into wishlist
+export async function addWish(req, res) {
+  const { userId, productId } = req.params;
+
+  try {
+    // Find the user's wishlist
+    let wishlist = await wishlistSchema.findOne({ userId });
+
+    // If wishlist doesn't exist, create a new one
+    if (!wishlist) {
+      wishlist = new wishlistSchema({
+        userId,
+        products: [productId], // Add product to wishlist
+      });
+      await wishlist.save();
+      return res.status(201).send({ msg: 'Product added to wishlist' });
+    }
+
+    // If products array doesn't exist, initialize it
+    if (!wishlist.products) {
+      wishlist.products = [];
+    }
+
+    // Check if product already exists in the wishlist
+    const productIndex = wishlist.products.indexOf(productId);
+
+    if (productIndex !== -1) {
+      // Product already in wishlist, remove it
+      wishlist.products.splice(productIndex, 1); // Remove product from the array
+      await wishlist.save();
+      return res.status(200).send({ msg: 'Product removed from wishlist' });
+    }
+
+    // Product not in wishlist, add it
+    wishlist.products.push(productId);
+    await wishlist.save();
+    return res.status(200).send({ msg: 'Product added to wishlist' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ msg: 'Server error' });
+  }
+
+}
+
+//remove from wishlist
+export async function remWish(req, res){
+    const { userId, productId } = req.params;
+  
+    try {
+      const wishlist = await wishlistSchema.findOneAndUpdate(
+        { userId }, 
+        { $pull: { products: { productId } } },  // Remove productId from the wishlist
+        { new: true }  // Return the updated wishlist
+      );
+  
+      if (!wishlist) {
+        return res.status(404).send({ msg: 'Wishlist not found' });
+      }
+  
+      return res.status(200).send({ msg: 'Product removed from wishlist' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({ msg: 'Error removing product from wishlist' });
+    }
+  };
+  
+  //display wish list products
+  export async function getWishlist(req, res){
+    try {
+      const wishlist = await wishlistSchema.findOne({ userId: req.params.userId }).populate('products.productId');
+  
+      if (!wishlist) return res.status(404).send({ msg: 'Wishlist not found' });
+  
+      res.status(200).send(wishlist);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ msg: 'Error fetching wishlist' });
+    }
+  };
+  
  

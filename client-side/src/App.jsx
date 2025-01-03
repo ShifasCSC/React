@@ -13,7 +13,6 @@ import Products from './Components/Product/Product'
 import EditComapany from './Components/Sell/EditCompany'
 import ProductDetails from './Components/Product/Details'
 import EditProduct from './Components/Product/Edit'
-import { AccountProvider } from './Components/AccountContext'
 import Orders from './Components/Orders/Orders'
 import Wishlist from './Components/Whishlist/Wishlist'
 import Cart from './Components/Cart/Cart'
@@ -25,8 +24,6 @@ function App() {
   return (
     <>
    <BrowserRouter>
-   <AccountProvider>
-    
    {user && <Nav user={user} setUser={setUser} />}
    <Routes>
     <Route path='/signup' element={<SignUp/>}/>
@@ -45,7 +42,6 @@ function App() {
 
     <Route path='/' element={<Home setUser={setUser}/>}/>
     </Routes>
-   </AccountProvider>
     </BrowserRouter>
     </>
   )
