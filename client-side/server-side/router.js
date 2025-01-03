@@ -37,8 +37,8 @@ router.route('/getproducts').get(rh.getProducts)
 router.route('/getcatproducts/:category').get(rh.getCatProducts)
 
 //whish list
-router.route('/addwish/:userId/:productId').put(rh.addWish)
-router.route('/getwish').get(rh.getWishlist)
-router.route('/remwish/:userId/:productId').delete(rh.remWish)
+router.route('/addwish').post(Auth,rh.addWish)
+router.route('/getwish').get(Auth,rh.remWish)
+router.route('/remwish').post(Auth,rh.remWish)
 
 export default router;

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const productSchema=await mongoose.Schema({
+    sellerId:{type:String},
     productName:{type:String},
     price:{type:Number},
     category:{type:String},
