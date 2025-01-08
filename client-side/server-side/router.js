@@ -37,8 +37,13 @@ router.route('/getproducts').get(rh.getProducts)
 router.route('/getcatproducts/:category').get(rh.getCatProducts)
 
 //whish list
-router.route('/addwish').post(Auth,rh.addWish)
-router.route('/getwish').get(Auth,rh.remWish)
-router.route('/remwish').post(Auth,rh.remWish)
+router.route('/addwish/:id').post(Auth,rh.addWish)
+router.route('/getwish').get(Auth,rh.getWish)
+router.route('/remwish/:id').delete(Auth,rh.remWish)
+router.route('/check/:id').get(Auth,rh.checkWish);  // Check if product is in wishlist
+
+//cart
+router.route("/addtocart").post(Auth,rh.addToCart);
+router.route("/getcart").get(Auth,rh.getCart); 
 
 export default router;

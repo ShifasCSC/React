@@ -12,7 +12,7 @@ import AddProduct from './Components/AddProduct/AddProduct'
 import Products from './Components/Product/Product'
 import EditComapany from './Components/Sell/EditCompany'
 import ProductDetails from './Components/Product/Details'
-import EditProduct from './Components/Product/Edit'
+import EditProduct from './Components/EditProduct/EditProduct'
 import Orders from './Components/Orders/Orders'
 import Wishlist from './Components/Whishlist/Wishlist'
 import Cart from './Components/Cart/Cart'
@@ -37,8 +37,10 @@ function App() {
     <Route path="/addproduct" element={<AddProduct/>}/>
     <Route path="/editcompany" element={<EditComapany/>}/>
     <Route path="/products/:category" element={<Products/>}/>
+    <Route path='/editproduct/:_id' element={<EditProduct/>}/>
     <Route path="/details/:_id" element={<ProductDetails user={user} setUser={setUser}/>}/>
-    <Route path='/editdetails/:_id' element={<EditProduct/>}/>
+    <Route path='/cart' element={<Cart  setUser={setUser}/>}/>
+
 
     <Route path='/' element={<Home setUser={setUser}/>}/>
     </Routes>

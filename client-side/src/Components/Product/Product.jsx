@@ -18,17 +18,7 @@ const Products = () => {
         const {data}=await axios.get(`${api}/getcatproducts/${category}`)
         setProducts(data)
     };
-    // const handleDelete=async()=>{
-    //     try{
-    //     const res=await axios.delete(`${api}/delproduct/${_id}`)
-    //     console.log(res);
-        
-    //     }catch(error){
-    //         console.log(error);
-            
-    //     }
-    // }
-    // console.log(category);
+    
     
   return (
     <>

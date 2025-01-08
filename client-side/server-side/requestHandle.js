@@ -4,10 +4,11 @@ import companySchema from "./models/company.model.js"
 import productSchema from "./models/product.model.js"
 import categorySchema from "./models/category.model.js"
 import wishlistSchema from "./models/wishList.model.js";
+import cartSchema from "./models/cart.model.js"
 import pkg from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import nodemailer from "nodemailer"
-import { send } from "vite"
+
 
 const {sign}=pkg
 
@@ -377,96 +378,149 @@ export async function getCatProducts(req,res){
 //WISHLIST
 
 //to add products into wishlist
-export async function addWish(req, res) {
-    try {
-        const { id } = req.body;  // Product ID to add
-        const _id = req.user.userId;  // Logged-in user ID
+export async function addWish(req,res) {
+    // try {
+    //     const {id}=req.params;
+    //     const _id=req.user;
+    //     const user=await userSchema.findOne({_id})
+    //     console.log(id);
         
-        // Check if the user exists
-        const user = await userSchema.findOne({buyerId:_id });
-        if (!user) {
-            return res.status(403).send({ msg: "Unauthorized access" });
+    //     if(!user)
+    //         return res.status(403).send({msg:"Unauthorized acces"});
+    //     const product= await wishlistSchema.findOne({id})
+    //     if(product)
+    //     return res.status(404).send({msg:"product is already existed in your wishlist"})
+    //     const wishlist=await wishlistSchema.create({buyerId:_id,productId:id});
+    //     return res.status(201).send({msg:"success",wishlist});
+    // } catch (error) {
+    //     return res.status(404).send({msg:"error"})
+    // }
+    try {
+        const _id = req.user.userId;  // Assuming req.user is set by your authentication middleware
+        const { id } = req.params;
+
+        // Check if the product is already in the wishlist
+        const existingItem = await wishlistSchema.findOne({ buyerId: _id, productId:id });
+        if (existingItem) {
+            return res.status(400).send({ msg: "Product is already in your wishlist" });
         }
 
-        // Find the user's wishlist
-        let wishlist = await wishlistSchema.findOne({ buyerId: _id });
-
-        // If no wishlist exists, create a new one with products as an empty array
-        if (!wishlist) {
-            wishlist = await wishlistSchema.create({ buyerId: _id, products: [id] });
-            return res.status(201).send({ msg: "Product added to wishlist", wishlist });
-        }
-
-        // Ensure that products is an array
-        if (!Array.isArray(wishlist.products)) {
-            wishlist.products = [];  // Initialize products as an empty array if it's not an array
-        }
-
-        // Check if the product already exists in the wishlist
-        const productIndex = wishlist.products.indexOf(id);
-
-        if (productIndex === -1) {
-            // Product not in the wishlist, add it
-            wishlist.products.push(id);
-            await wishlist.save();
-            return res.status(200).send({ msg: "Product added to wishlist", wishlist });
-        } else {
-            // Product already exists, remove it
-            wishlist.products.splice(productIndex, 1);
-            await wishlist.save();
-            return res.status(200).send({ msg: "Product removed from wishlist", wishlist });
-        }
+        // Add product to the wishlist
+        const newItem = new wishlistSchema({ buyerId: _id, productId:id });
+        await newItem.save();
+        return res.status(201).send({ msg: "Product added to wishlist" });
     } catch (error) {
-        console.error("Error adding/removing product from wishlist:", error);  // Log the error for debugging
-        return res.status(500).send({ msg: "An error occurred while processing your request" });
+        console.error(error);
+        return res.status(500).send({ msg: "Error adding to wishlist" });
     }
 }
+
 
 
 
 //remove from wishlist
+// Remove from wishlist
 export async function remWish(req, res) {
     try {
-        const { id } = req.body;  // Product ID to remove
-        const _id = req.user.userId;  // Logged-in user ID
+        const _id = req.user.userId;  // Assuming req.user is set by your authentication middleware
+        const { id } = req.params;
+
+        // Remove the product from the wishlist
+        const removed = await wishlistSchema.deleteOne({ buyerId: _id, productId:id });
+        if (removed.deletedCount === 0) {
+            return res.status(404).send({ msg: "Product not found in wishlist" });
+        }
+
+        return res.status(200).send({ msg: "Product removed from wishlist" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ msg: "Error removing from wishlist" });
+    }
+}
+//check whether the product is in wish list or not
+// Check if product is in the wishlist
+export async function checkWish(req, res) {
+    try {
+        const _id = req.user.userId;  // Assuming req.user is set by your authentication middleware
+        const { id } = req.params;  // Product ID from URL parameters
+        // console.log(_id);
+        // console.log(id);
         
-        // Check if the user exists
-        const user = await userSchema.findOne({buyerId:_id });
+        // Check if the product is in the user's wishlist
+        const existingItem = await wishlistSchema.findOne({ buyerId: _id, productId: id });
+
+        if (existingItem) {
+            return res.status(200).send({ isInWishlist: true });
+        }
+
+        return res.status(200).send({ isInWishlist: false });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ msg: "Error checking wishlist status" });
+    }
+}
+
+
+// Get user's wishlist and product details
+export async function getWish(req, res) {
+    try {
+        const _id = req.user.userId;  // Assuming req.user is set by your authentication middleware
+        const { productId } = req.body;
+        console.log(productId);
+        
+
+        // Check if the product exists in the wishlist
+        // const item = await wishlistSchema.find({ buyerId: _id });
+        // if (item) {
+        //     return res.status(200).send({ isInWishlist: true });
+        // }
+
+        // return res.status(200).send({ isInWishlist: false });
+        const wishlist=await wishlistSchema.find({buyerId:_id,productId})
+        // Fetch product details for each item in the wishlist
+        const productPromises = wishlist.map(async (list) => {
+            return await productSchema.findOne({ _id: list.productId });
+        });
+        const products = await Promise.all(productPromises);
+         console.log(_id);
+         
+        res.status(200).send({msg:"sucess",products})
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ msg: "Error checking wishlist" });
+    }
+}
+
+
+//cart section
+export async function addToCart(req, res) {
+    try {
+        const cart = req.body;
+        const userId = req.user.userId; // Assuming user authentication middleware sets req.user
+
+        // Save cart item
+        const data = await cartSchema.create({ buyerId: userId, ...cart });
+        return res.status(201).send({ msg: "Added to Cart" });
+    } catch (error) {
+        return res.status(404).send({ msg: "Error adding to cart" });
+    }
+}
+
+export async function getCart(req, res) {
+    try {
+        const userId = req.user.userId; // Assuming user authentication middleware sets req.user
+        const user = await loginSchema.findOne({ _id: userId });
+
         if (!user) {
             return res.status(403).send({ msg: "Unauthorized access" });
         }
 
-        // Find the user's wishlist
-        const wishlist = await wishlistSchema.findOne({ buyerId: _id });
+        // Fetch cart items and user address
+        const cart = await cartSchema.find({ buyerId: userId });
+        const addresses = await addressSchema.findOne({ userId: userId }, { addresses: 1 });
 
-        if (!wishlist) {
-            return res.status(404).send({ msg: "Wishlist not found" });
-        }
-
-        // Ensure that products is an array
-        if (!Array.isArray(wishlist.products)) {
-            wishlist.products = [];  // Initialize products as an empty array if it's not an array
-        }
-
-        // Remove the product from the wishlist
-        const productIndex = wishlist.products.indexOf(id);
-
-        if (productIndex === -1) {
-            return res.status(404).send({ msg: "Product not found in wishlist" });
-        }
-
-        // Remove the product from the products array
-        wishlist.products.splice(productIndex, 1);
-
-        // Save the updated wishlist
-        await wishlist.save();
-
-        return res.status(200).send({ msg: "Product removed from wishlist", wishlist });
+        return res.status(200).send({ username: user.username, role: user.role, cart, addresses });
     } catch (error) {
-        console.error("Error removing product from wishlist:", error);  // Log the error for debugging
-        return res.status(500).send({ msg: "An error occurred while processing your request" });
+        return res.status(404).send({ msg: "Error fetching cart" });
     }
 }
-
-  
- 
