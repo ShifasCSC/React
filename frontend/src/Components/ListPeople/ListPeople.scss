@@ -1,0 +1,109 @@
+.ListPeople {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f1f1f1;
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      flex-grow: 1;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    }
+  
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: #333;
+  
+      &:hover {
+        background-color: #e5e5e5;
+        transform: translateY(-5px);
+      }
+  
+      .profile-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+  
+        .profile-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+  
+        .username {
+          font-size: 1.1rem;
+          font-weight: bold;
+          color: #333;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+  
+      .message-preview {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: auto;
+        text-align: right;
+        max-width: 200px;
+        .message-text {
+          font-size: 0.9rem;
+          color: #999;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .last-message-time {
+          font-size: 0.8rem;
+          color: #888;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+  
+  // Mobile Styles
+  @media (max-width: 768px) {
+    .ListPeople {
+      .container {
+        gap: 1rem;
+        padding: 1rem;
+      }
+  
+      .content {
+        padding: 0.8rem;
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+  
+      .profile-wrapper {
+        gap: 0.8rem;
+      }
+  
+      .content .username {
+        font-size: 1rem;
+      }
+  
+      .message-preview {
+        max-width: 160px;
+      }
+    }
+  }
+  

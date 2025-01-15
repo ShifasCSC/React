@@ -1,0 +1,202 @@
+.Signup {
+background:rgb(248, 246, 246);  ;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modern-form {
+    background: #075E54;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    .form-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #fdfbfb;
+      text-align: center;
+    }
+
+    .form-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .input-group {
+        .input-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+        }
+
+        // .input-icon {
+        //   position: absolute;
+        //   left: 10px;
+        //   color: #f7f4f4;
+        //   font-size: 18px;
+        // }
+
+        .form-input {
+          width: 100%;
+          padding: 12px 15px 12px 40px; /* Adjust padding for icon space */
+          border: 2px solid #ddd;
+          border-radius: 12px;
+          font-size: 16px;
+          color: #333;
+          outline: none;
+          transition: all 0.3s ease;
+
+        
+          &:hover {
+            border-color: #8c8c8d;
+            transform: scale(1.02);
+          }
+
+          &:focus {
+            border-color: #acb4c2;
+            box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+          }
+        }
+
+        .password-toggle {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: transparent;
+          border: none;
+          color: #7a7b7c;
+        }
+
+        .eye-icon {
+          font-size: 20px;
+        }
+      }
+
+      .photo-upload {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .photo-label {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 18px;
+          color: #333;
+          border: 2px double #ddd;
+          padding: 20px;
+          border-radius: 8px;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #928f8f;
+          }
+
+          .photo-input {
+            display: none;
+          }
+
+          .photo-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+          }
+
+          span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #f1f2f5;
+          }
+        }
+      }
+    }
+
+    .submit-button {
+      margin-top: 10px;
+      background-color: #414243;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 18px;
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+
+      &:hover {
+        background-color: #8b898c;
+        color: #333;
+        transform: scale(1.04);
+
+      }
+
+      .button-text {
+        z-index: 1;
+      }
+
+      
+    }
+
+    .form-footer {
+      margin-top: 15px;
+      text-align: center;
+
+      .login-link {
+        color: #11044d;
+        text-decoration: none;
+        font-size: 14px;
+
+        span {
+          font-weight: bold;
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 8px #fff, 0 0 10px #2575fc, 0 0 12px #2575fc;
+    }
+
+    100% {
+      box-shadow: 0 0 12px #fff, 0 0 15px #2575fc, 0 0 18px #2575fc;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .modern-form {
+      width: 90%;
+      padding: 20px;
+    }
+
+    .form-title {
+      font-size: 20px;
+    }
+
+    .form-input {
+      font-size: 14px;
+    }
+
+    .submit-button {
+      font-size: 16px;
+    }
+  }
+}
