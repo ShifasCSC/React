@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap');
 
 .Profile {
-  font-family: 'Jura', sans-serif;
-  min-height: 100vh;
-
+  min-height:auto;
+padding:0px 3px;
+width: auto;
   .profile-card {
     max-width: 1200px;
     margin: 30px auto;
@@ -15,8 +15,8 @@
 
     .avatar {
       position: relative;
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
       margin: 0 auto;
       border-radius: 50%;
       overflow: hidden;
@@ -61,10 +61,11 @@
     }
 
     .profile-details {
-      margin-top: 20px;
+      // margin-top: 20px;
 
       .headings {
         display: flex;
+        width: 100%;
         justify-content: center;
         align-items: center;
         gap: 10px;
@@ -76,16 +77,24 @@
 
         .edit-input {
           font-size: 18px;
+          width: 100%;
           padding: 8px;
           border: 1px solid #ccc;
           border-radius: 5px;
-          margin-left: 10px;
+          // margin-left: 10px;
         }
 
         .save-btn {
           margin-left: 10px;
-          background: transparent;
+          padding-right: 14px;
+          // background: transparent;
+          font-size: 16px;
           border: none;
+          size: 20px;
+          width: 10px;
+          height: 20px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
           cursor: pointer;
         }
       }

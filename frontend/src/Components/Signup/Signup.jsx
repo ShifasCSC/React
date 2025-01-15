@@ -153,7 +153,7 @@ const Signup = () => {
                 id='phone'
               placeholder="Phone Number"
               className="form-input"
-              type="number"
+              type="text"
               onChange={handleChange}
             />
           </div>

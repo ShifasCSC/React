@@ -1,14 +1,15 @@
 .ListPeople {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    // min-height: 100vh;
+    padding:0px 3px;
     background-color: #f1f1f1;
   
     .container {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem;
+      padding: 10px;
       flex-grow: 1;
       background-color: #fff;
       border-radius: 15px;

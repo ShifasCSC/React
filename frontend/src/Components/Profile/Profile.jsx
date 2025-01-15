@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaPhoneAlt, FaEnvelope, FaCamera, FaUser } from "react-icons/fa";
+import { FaCamera} from "react-icons/fa";
 import { FiCheck, FiX, FiEdit } from "react-icons/fi";
 import axios from "axios";
 import route from "../route";
@@ -132,7 +132,7 @@ const Profile = () => {
 
         <div className="profile-details">
           <div className="headings">
-            <FaUser size={20} className="icon" />
+           <label htmlFor="username">name:</label>
             <input
               type="text"
               value={username}
@@ -155,27 +155,7 @@ const Profile = () => {
           <div className="contact-info">
             <ul>
               <li>
-                <FaPhoneAlt className="icon" />
-                <input
-                  type="text"
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  className="edit-input"
-                  disabled={!isPEdit}
-                />
-                {isPEdit ? (
-                  <button className="save-btn">
-                    <FiCheck onClick={handleSavePhone} color="green" />{" "}
-                    <FiX onClick={() => setIsPEdit(!isPEdit)} color="red" />
-                  </button>
-                ) : (
-                  <button className="save-btn">
-                    <FiEdit onClick={() => setIsPEdit(!isPEdit)} />
-                  </button>
-                )}
-              </li>
-              <li>
-                <FaEnvelope className="icon" />
+                <label htmlFor="email">email:</label>
                 <input
                   type="text"
                   value={email}
@@ -191,6 +171,26 @@ const Profile = () => {
                 ) : (
                   <button className="save-btn">
                     <FiEdit onClick={() => setIsEEdit(!isEEdit)} />
+                  </button>
+                )}
+              </li>
+              <li>
+                <label htmlFor="phone">phone:</label>
+                <input
+                  type="text"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  className="edit-input"
+                  disabled={!isPEdit}
+                />
+                {isPEdit ? (
+                  <button className="save-btn">
+                    <FiCheck onClick={handleSavePhone} color="green" />{" "}
+                    <FiX onClick={() => setIsPEdit(!isPEdit)} color="red" />
+                  </button>
+                ) : (
+                  <button className="save-btn">
+                    <FiEdit onClick={() => setIsPEdit(!isPEdit)} />
                   </button>
                 )}
               </li>
