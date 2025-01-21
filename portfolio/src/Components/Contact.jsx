@@ -14,7 +14,7 @@ function Contact() {
   return (
     <div id='contact'>
         <h1 className='text-4xl text-center text-gray-300 mt-40'>CONTACT</h1>
-        <div className="con flex flex-col justify-center text-center flex-wrap items-center ">
+        <div className="con flex space-x-10 justify-center text-center flex-wrap items-center ">
 
         <div className='flex space-x-2 mt-20 trackling-tighter'>
         <MdOutlineMail className='text-5xl text-white border border-3 border-white rounded p-2'/>

@@ -1,9 +1,25 @@
-*{
-    margin: 0px;
-    padding: 0px;
-}
-#li a:hover{
-    transform: scaleX(0);
-    transition: transform 0.5s;
-    transform-origin:0% 50% ;
-}
+  *{
+      margin: 0px;
+      padding: 0px;
+  }
+  #li a:hover{
+      transform: scaleX(0);
+      transition: transform 0.5s;
+      transform-origin:0% 50% ;
+  }
+
+    #nav {
+      background-attachment: fixed; 
+      position:fixed; /* Ensures it stays fixed while scrolling */
+      top: 0; /* Aligns the top of the viewport */
+      right: 0;
+      left: 0; /* Aligns to the right of the viewport */
+      display: flex; /* Keeps the children organized in a row or column */
+      justify-content: flex-end; /* Pushes children to the right */
+      align-items: center; /* Vertically aligns children */
+      width: auto; /* Adjust width as per content or screen width */
+      // padding: 0px 20px; /* Adds some space around the content */
+      background-color: white; /* Optional: Add a background color if needed */
+      z-index: 1000; /* Ensures the nav is above other elements */
+    }
+    
