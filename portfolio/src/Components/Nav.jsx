@@ -12,16 +12,16 @@ const Nav=()=>{
   </div>
   <div className="right">
     <ul className="list flex space-x-10 px-10 my-2  text-black">
-      <li className="hover:underline underline-offset-4 decoration-2 decoration-violet-400 hover:delay-150 hover:scale-110">
+      <li className="hover:underline underline-offset-4 decoration-2 decoration-white hover:delay-150 hover:scale-110">
         <a href="#">Home</a>
       </li>
-      <li className="hover:underline underline-offset-4 decoration-2 decoration-violet-400 hover:delay-150 hover:scale-110">
+      <li className="hover:underline underline-offset-4 decoration-2 decoration-white hover:delay-150 hover:scale-110">
         <a href="#next-section">About</a>
       </li>
-      <li className="hover:underline underline-offset-4 decoration-2 decoration-violet-400 hover:delay-150 hover:scale-110">
+      <li className="hover:underline underline-offset-4 decoration-2 decoration-white hover:delay-150 hover:scale-110">
         <a href="#project">Projects</a>
       </li>
-      <li className="hover:underline underline-offset-4 decoration-2 decoration-violet-400 hover:delay-150 hover:scale-110">
+      <li className="hover:underline underline-offset-4 decoration-2 decoration-white hover:delay-150 hover:scale-110">
         <a href="#contact">Contacts</a>
       </li>
     </ul>
