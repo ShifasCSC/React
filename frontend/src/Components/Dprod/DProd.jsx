@@ -95,7 +95,7 @@ const DProd = ({ setUsername, setRole, setLoggedIn }) => {
         headers: { "Authorization": `Bearer ${value}` }
       });
       if (status === 201) {
-        alert(data.msg);
+        alert("success");
         navigate(`/scart/${product._id}`);
       } else {
         alert("Could not add to cart");

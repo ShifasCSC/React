@@ -45,12 +45,13 @@ const SCart = ({ setUsername, setRole, setLoggedIn }) => {
         if (status === 201) {
             // alert(data.msg);
             if(data.msg=="success")
-                navigate('/purchasecompleted')
+                navigate('/home')
         }
     };
     
     return (
         <div className="cart-container">
+            <h2 className='buy'>Buying section</h2>
             {!cartItem ? (
                 <div className="empty-cart">
                     <h2>No such product</h2>

@@ -34,10 +34,10 @@ const App = () => {
 
                 <Navbar username={username} role={role} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <Routes>
-        <Route path='/login' Component={Login}/>
+        <Route path='/' Component={Login}/>
         <Route path='/email' Component={Email}/>
         <Route path='/signup' Component={Signup}/>
-        <Route path='/' element={<Home  setUsername={setUsername} setRole={setRole} setLoggedIn={setLoggedIn}/>}/>
+        <Route path='/home' element={<Home  setUsername={setUsername} setRole={setRole} setLoggedIn={setLoggedIn}/>}/>
         <Route path='/profile' element={<Profile role={role}  setUsername={setUsername} loggedIn={loggedIn} setRole={setRole} setLoggedIn={setLoggedIn}/>}/>
         <Route path='/company' element={<Company  setUsername={setUsername} setRole={setRole} setLoggedIn={setLoggedIn}/>}/>
         <Route path='/addproduct' element={<AddProduct  setUsername={setUsername} setRole={setRole} setLoggedIn={setLoggedIn}/>}/>

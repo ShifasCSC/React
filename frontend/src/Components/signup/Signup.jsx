@@ -83,7 +83,7 @@ const Signup = () => {
       if (status === 201) {
         alert(data.msg);
         localStorage.removeItem('email');
-        navigate('/Login');
+        navigate('/');
       }
     } catch (error) {
       alert(`Error: ${error.response?.data?.msg || "An error occurred"}`);

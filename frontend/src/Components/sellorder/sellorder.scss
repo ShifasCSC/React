@@ -17,7 +17,8 @@ $shadow-color: rgba(0, 0, 0, 0.1);
   .orders-heading {
     top: 10%;
     left: 0;
-    width: 100%;
+    width: auto;
+    overflow-x: hidden;
     text-align: center;
     font-size: 2rem;  // Increase font size to make the heading bigger
     color: rgb(16, 57, 74);

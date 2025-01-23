@@ -21,7 +21,7 @@ const Navbar = ({ username, role, loggedIn, setLoggedIn }) => {
   return (
     <div className="navbar">
       <div className="navbar-logo">
-        <Link to={'/'}>
+        <Link to={'/home'}>
           <span className="website-name">CHOVARA</span>
         </Link>
       </div>
@@ -54,7 +54,7 @@ const Navbar = ({ username, role, loggedIn, setLoggedIn }) => {
             </Link>
           </>
         ) : (
-          <Link to="/login" className="log">
+          <Link to="/" className="log">
             <img src="./images/profile.png" alt="Login" />
             <p>Login</p>
           </Link>

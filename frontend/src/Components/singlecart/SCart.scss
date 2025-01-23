@@ -1,13 +1,25 @@
 /* Cart Container */
+body{
+    background-color: white;
+}
 .cart-container {
+    height: 100%;
+    
   width: 100%;
   padding: 3rem 2rem;
   box-sizing: border-box;
-  background-color: #fafbfc;
+//   background-color: #fafbfc;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
+.buy{
+    font-size:xx-large;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    color: #155459;
+    text-align: center;
+    margin-right: 300px;
+}
   /* Empty Cart Message */
   .empty-cart {
       text-align: center;

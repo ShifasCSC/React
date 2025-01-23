@@ -21,7 +21,7 @@ const Login = () => {
     if(status===200){
       localStorage.setItem("Auth",data.token);
       notify(data.msg)
-      navigate('/')
+      navigate('/home')
     }
   
     } catch (error) {

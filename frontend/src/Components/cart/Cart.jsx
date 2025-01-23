@@ -70,7 +70,7 @@
               if (status === 201) {
                   alert(data.msg);
                   if (data.msg1 === "success") {
-                      navigate('/');
+                      navigate('/home');
                   }
               } else {
                   alert("Order placement failed. Please try again.");
@@ -89,7 +89,7 @@
         {cartItems.length === 0 ? (
           <div className="empty-cart">
             <h2>Cart empty..</h2>
-            <Link to={'/'}>Go to products</Link>
+            <Link to={'/home'}>Go to products</Link>
           </div>
         ) : (
           <div className="cart">
