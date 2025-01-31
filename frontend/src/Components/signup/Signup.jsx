@@ -31,7 +31,7 @@ const Signup = () => {
 
   const validatePassword = () => {
     const password = user.password;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.])[A-Za-z\d@$!%*?&\.]{8,}$/;
     if (!passwordRegex.test(password)) {
       return "Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character.";
     }
@@ -39,7 +39,7 @@ const Signup = () => {
   };
 
   const validatePhone = () => {
-    const phoneRegex = /^[0-9]{10}$/; // Validate a 10-digit phone number
+    const phoneRegex = /^[6-9]\d{9}$/; // Validate a 10-digit phone number
     if (!phoneRegex.test(user.phone)) {
       return "Phone number must be 10 digits.";
     }

@@ -21,7 +21,7 @@
     align-items: center;
 
     .website-name {
-      font-size: 28px;
+      font-size: 18px;
       font-weight: 700;
       letter-spacing: 2px;
       color:rgb(174, 180, 184);
@@ -138,19 +138,19 @@ border-radius: 10px;
   // Responsive Design
   @media screen and (max-width: 768px) {
     flex-direction: column;
-    padding: 15px 3%;
+    // padding: 15px 3%;
 
     .navbar-logo {
-      margin-bottom: 15px;
+      // margin-bottom: 15px;
       
       .website-name {
-        font-size: 24px;
+        font-size: 10px;
       }
     }
 
     .navbar-right {
       width: 100%;
-      justify-content: space-between;
+      // justify-content: space-between;
       // flex-wrap: wrap;
 
       .navh4 {
@@ -182,7 +182,7 @@ border-radius: 10px;
       }
     }
     .website-name {
-      font-size: 14px;
+      font-size: 6px;
     }
   }
 }
