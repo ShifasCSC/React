@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: 5%;
+    height: 5vh;
     .h2 {
       a{
         color: #ffffff;
@@ -44,10 +44,12 @@
 
   .chat-body {
     padding: 20px;
-    height: 90%;
+    height: 87vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Keep messages at the bottom */
+    justify-content: baseline; /* Keep messages at the bottom */
+    overflow: scroll;
+    scrollbar-width: none;
   // background-color: #f7dc0f;
     .message {
       margin-bottom: 10px;

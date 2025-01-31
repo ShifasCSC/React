@@ -20,10 +20,10 @@ const ChatCard = () => {
   const [pressTimer, setPressTimer] = useState(null); // Timer ID for long press detection
 
   useEffect(() => {
-    const interval=setInterval(()=>{
-      getDetails();//update state,causing a re-render every second 
-    },1000);
-    return ()=>clearInterval(interval);
+    const interval = setInterval(()=>{
+      getDetails();
+    },1000)
+    return ()=> clearInterval(interval)
   }, []);
 
   const getDetails = async () => {

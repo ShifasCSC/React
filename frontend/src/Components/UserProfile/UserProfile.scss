@@ -74,11 +74,10 @@
 
     .contact-info {
       margin-top: 25px;
-
       ul {
         list-style: none;
         padding: 0;
-
+        
         li {
           display: flex;
           align-items: center;
@@ -98,12 +97,12 @@
       }
     }
 
-    .divider {
-      margin-top: 30px;
-      border: none;
-      height: 1px;
-      background-color: #e0e0e0;
-    }
+    // .divider {
+    //   margin-top: 30px;
+    //   border: none;
+    //   height: 1px;
+    //   background-color: #e0e0e0;
+    // }
   }
 
   // Responsive Styling

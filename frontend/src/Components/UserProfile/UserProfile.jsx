@@ -62,7 +62,7 @@ const UserProfile = () => {
             </li>
           </ul>
         </div>
-        <hr className="divider" />
+        {/* <hr className="divider" /> */}
       </div>
     </div>
   );

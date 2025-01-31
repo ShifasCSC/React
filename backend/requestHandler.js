@@ -32,6 +32,26 @@ export async function nav(req,res) {
     }
 }
 
+// export async function home(req,res) {
+//     try {
+//         const _id=req.user.userId;
+//         const user=await userSchema.findOne({_id});
+//         if(!user)
+//            return res.status(403).send({msg:"Login to continue"});
+//         const receivers=await chatMemberSchema.find({$or:[{senderId:_id},{receiverId:_id}]});
+//         const chatMemberPromises = receivers.map(async (receiver) => {
+//             if(receiver.senderId==_id)
+//                 return await userSchema.findOne({ _id: receiver.receiverId },{username:1,profile:1});
+//             if(receiver.receiverId==_id)
+//                 return await userSchema.findOne({ _id: receiver.senderId },{username:1,profile:1});
+//         });
+//         const chatMembers = await Promise.all(chatMemberPromises);
+//         return res.status(200).send({chatMembers});
+//     } catch (error) {
+//         return res.status(404).send({msg:"error"})
+//     }
+// }
+
 export async function home(req,res) {
     try {
         const _id=req.user.userId;
@@ -45,12 +65,23 @@ export async function home(req,res) {
             if(receiver.receiverId==_id)
                 return await userSchema.findOne({ _id: receiver.senderId },{username:1,profile:1});
         });
-        const chatMembers = await Promise.all(chatMemberPromises);
-        return res.status(200).send({chatMembers});
+        const members = await Promise.all(chatMemberPromises);
+        const chatmembers=Array.from(new Map(members.map(member => [member.username, member])).values()).reverse()  
+        
+        const countPromises=chatmembers.map(async(member)=>{
+            return await messageSchema.countDocuments({senderId:member._id,seen:false})
+        })
+        const counts=await Promise.all(countPromises);
+        const messagePromises=chatmembers.map(async(member)=>{
+            return await messageSchema.findOne({$or:[{senderId:_id,receiverId:member._id},{senderId:member._id,receiverId:_id}]},{message:1,seen:1}).sort({ _id: -1 })
+        })
+        const lmessages=await Promise.all(messagePromises);
+        return res.status(200).send({chatmembers,counts,lmessages});
     } catch (error) {
         return res.status(404).send({msg:"error"})
     }
 }
+
 
 export async function profile(req,res) {
     try {
@@ -95,6 +126,12 @@ export async function chat(req,res) {
         const user=await userSchema.findOne({_id:sid});
         if(!user)
            return res.status(403).send({msg:"Login to continue"});
+        const unseen=await messageSchema.find({senderId:rid,receiverId:sid,seen:false});
+        if(unseen)
+        {
+            const updateunseen=await messageSchema.updateMany({senderId:rid,receiverId:sid},{$set:{seen:true}});
+        }
+        
         const receiver=await userSchema.findOne({_id:rid},{profile:1,username:1})
         const chats=await messageSchema.find({$or:[{senderId:sid,receiverId:rid},{senderId:rid,receiverId:sid}]});
         
@@ -104,6 +141,7 @@ export async function chat(req,res) {
     }
 }
 
+
 export async function addMessage(req,res) {
     try {
         const {rid}=req.params;
@@ -112,7 +150,7 @@ export async function addMessage(req,res) {
         const chatmember=await chatMemberSchema.findOne({senderId:sid,receiverId:rid});
         if(!chatmember)
            await chatMemberSchema.create({senderId:sid,receiverId:rid})
-        const chats=await messageSchema.create({senderId:sid,receiverId:rid,message,date,time});
+        const chats=await messageSchema.create({senderId:sid,receiverId:rid,message,date,time,seen:false});
         return res.status(201).send({msg:"success"});
     } catch (error) {
         return res.status(404).send({msg:"error"})
