@@ -1,0 +1,17 @@
+.edit-btn{
+    background-color: gray;
+    color: white;
+}
+.save-btn{
+    background-color: green;
+    color: white;
+}
+button{
+    background-color: aquamarine;
+}
+#btn{
+    margin-top: 10px;
+}
+#btn:hover{
+    background-color: rgb(87, 82, 82);
+}
